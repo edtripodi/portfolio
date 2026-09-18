@@ -1,40 +1,50 @@
 # Portfolio — Esteban Tripodi
 
-Sitio estático (HTML/CSS/JS sin build) del portfolio personal.
+Portfolio personal de **Esteban Damián Tripodi**: Frontend Developer en camino hacia
+Ciberseguridad, Pentesting y DevSecOps.
 
-## Deploy en Vercel
+Sitio estático de una sola página (HTML/CSS/JS, sin build ni dependencias), pensado
+como landing page: cada sección ocupa un viewport completo y se navega con scroll-snap.
 
-**Opción A — CLI (más rápida, sin GitHub):**
+**Contenido:**
 
-```bash
-npm i -g vercel   # si no la tenés instalada
-cd /home/damz/dev/Frontend/portfolio
-vercel            # deploy de preview
-vercel --prod     # deploy a producción
-```
+- **Inicio** — presentación y terminal animada.
+- **Sobre mí** — experiencia laboral, formación completada, formación en curso,
+  a qué aspiro (Red Team / Blue Team / DevSecOps) y stack técnico.
+- **Proyectos** — auditoría de seguridad ofensiva (caso real, anonimizado) y
+  proyectos de desarrollo propios.
+- **Contacto** — email, LinkedIn y ubicación.
 
-**Opción B — vía GitHub:**
+## Stack
 
-```bash
-cd /home/damz/dev/Frontend/portfolio
-git init
-git add .
-git commit -m "Portfolio inicial"
-gh repo create portfolio-esteban --private --source=. --push
-```
-
-Después, en [vercel.com/new](https://vercel.com/new) importás el repo. Vercel detecta el `index.html` en la raíz automáticamente — no hace falta configurar build command ni output directory.
+HTML5 + CSS3 (custom properties, grid, scroll-snap) + JavaScript vanilla.
+Tipografía IBM Plex (Mono/Sans) vía Google Fonts. Sin frameworks ni bundler.
 
 ## Desarrollo local
 
-Es un único archivo estático, no requiere `npm install`. Para verlo local:
+Es un único archivo estático, no requiere `npm install`:
 
 ```bash
-cd /home/damz/dev/Frontend/portfolio
 python3 -m http.server 8000
 # abrir http://localhost:8000
 ```
 
-## Actualizar contenido
+## Deploy
 
-Todo el contenido (experiencia, cursos, proyectos) vive inline en `index.html`. La sección "Proyectos" tiene dos tarjetas `PRÓXIMAMENTE` — reemplazalas a medida que subas proyectos reales.
+El repo está conectado a Vercel — cada push a `main` dispara un deploy. `vercel.json`
+trae la config mínima (`cleanUrls`). Para deployar manualmente desde la CLI:
+
+```bash
+npm i -g vercel
+vercel --prod
+```
+
+## Estructura
+
+```
+index.html    # página completa (markup + estilos + script inline)
+logo.svg      # isotipo, usado como favicon y en el nav
+vercel.json   # config de deploy
+```
+
+Todo el contenido (experiencia, cursos, proyectos) vive inline en `index.html`.

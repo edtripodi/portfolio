@@ -21,18 +21,27 @@ HTML5 + CSS3 (custom properties, grid, scroll-snap) + JavaScript vanilla.
 Tipografía IBM Plex (Mono/Sans) vía Google Fonts. Sin frameworks ni bundler para la página.
 
 El formulario de contacto usa una **función serverless de Vercel** (`api/contact.js`)
-como proxy hacia [Web3Forms](https://web3forms.com): el cliente le pega a `/api/contact`,
-la función agrega la access key del lado del servidor y recién ahí llama a Web3Forms.
+que envía el mail vía [Resend](https://resend.com): el cliente le pega a `/api/contact`,
+la función usa la API key (secreta, server-side) para llamar a la API de Resend.
 La key nunca viaja al navegador ni queda en el repo.
+
+> Nota: se evaluó Web3Forms primero, pero su plan gratuito rechaza llamadas
+> server-to-server ("Pro plan is required") — su modelo de seguridad asume que la key
+> viaja en el cliente y se restringe por dominio, no que se oculte. Resend sí está
+> pensado para uso server-side, por eso el cambio.
 
 ## Variables de entorno
 
 | Variable | Dónde se usa | Dónde configurarla |
 |---|---|---|
-| `WEB3FORMS_ACCESS_KEY` | `api/contact.js` | Vercel → Project Settings → Environment Variables (Production **y** Preview) |
+| `RESEND_API_KEY` | `api/contact.js` | Vercel → Project Settings → Environment Variables (Production **y** Preview) |
 
 Ver `.env.example`. Sin esta variable configurada en Vercel, el endpoint `/api/contact`
 responde 500 y el formulario no envía nada.
+
+El remitente usa el dominio de pruebas `onboarding@resend.dev` (sin verificar dominio
+propio), que Resend solo permite enviar a la casilla asociada a la cuenta — suficiente
+para este caso de uso (el mail siempre llega a e.damiantripodi@gmail.com).
 
 ## Desarrollo local
 
@@ -67,7 +76,7 @@ vercel --prod
 
 ```
 index.html      # página completa (markup + estilos + script inline)
-api/contact.js  # función serverless: recibe el form y reenvía a Web3Forms con la key server-side
+api/contact.js  # función serverless: recibe el form y envía el mail vía Resend con la key server-side
 logo.svg        # isotipo, usado como favicon y en el nav
 vercel.json     # config de deploy
 .env.example    # variables de entorno esperadas (sin valores reales)

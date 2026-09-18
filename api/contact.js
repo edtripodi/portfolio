@@ -17,29 +17,38 @@ export default async function handler(req, res) {
     return;
   }
 
-  const accessKey = (process.env.WEB3FORMS_ACCESS_KEY || '').trim();
-  if (!accessKey) {
-    res.status(500).json({ success: false, message: 'El servidor no tiene configurada la access key.' });
+  const apiKey = (process.env.RESEND_API_KEY || '').trim();
+  if (!apiKey) {
+    res.status(500).json({ success: false, message: 'El servidor no tiene configurada la API key.' });
     return;
   }
 
   try {
-    const web3Res = await fetch('https://api.web3forms.com/submit', {
+    const resendRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        access_key: accessKey,
+        from: 'Portfolio <onboarding@resend.dev>',
+        to: ['e.damiantripodi@gmail.com'],
+        reply_to: email,
         subject: 'Nuevo mensaje desde el portfolio',
-        name,
-        email,
-        message,
+        text: `De: ${name} <${email}>\n\n${message}`,
       }),
     });
 
-    const data = await web3Res.json();
-    res.status(web3Res.ok ? 200 : 502).json(data);
+    const data = await resendRes.json();
+
+    if (!resendRes.ok) {
+      res.status(502).json({ success: false, message: data.message || 'Error al enviar el mensaje.' });
+      return;
+    }
+
+    res.status(200).json({ success: true });
   } catch (err) {
-    // TODO: sacar `debug` una vez resuelto el 500 — no expone la key, solo el mensaje de error.
+    // TODO: sacar `debug` una vez confirmado que funciona — no expone la key, solo el mensaje de error.
     res.status(500).json({
       success: false,
       message: 'Error al contactar el servicio de envío.',

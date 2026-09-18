@@ -206,14 +206,34 @@
   .projects-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:12px;}
 
   /* ---------- CONTACT ---------- */
-  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:14px;margin-bottom:28px;}
-  .contact-card{
+  .contact-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:36px;margin-bottom:24px;align-items:start;}
+  @media (max-width:760px){ .contact-layout{grid-template-columns:1fr;gap:24px;} }
+
+  .contact-list{display:flex;flex-direction:column;gap:10px;}
+  .contact-item{
     background:var(--bg);border:1px solid var(--border);border-radius:9px;
-    padding:16px;
+    padding:12px 14px;
   }
-  .slide.alt .contact-card{background:var(--bg-panel-2);}
-  .contact-card .k{font-family:var(--mono);font-size:.68rem;color:var(--text-dim);letter-spacing:.05em;margin-bottom:5px;display:block;}
-  .contact-card .v{font-size:.92rem;font-weight:500;}
+  .slide.alt .contact-item{background:var(--bg-panel-2);}
+  .contact-item .k{font-family:var(--mono);font-size:.68rem;color:var(--text-dim);letter-spacing:.05em;margin-bottom:4px;display:block;}
+  .contact-item .v{font-size:.9rem;font-weight:500;}
+
+  .contact-form{display:flex;flex-direction:column;gap:10px;}
+  .contact-form .hp{position:absolute;left:-9999px;opacity:0;pointer-events:none;}
+  .f-row{display:flex;flex-direction:column;gap:4px;}
+  .f-row label{font-family:var(--mono);font-size:.7rem;color:var(--text-dim);letter-spacing:.03em;}
+  .f-row input,.f-row textarea{
+    font-family:var(--sans);font-size:.88rem;color:var(--text);
+    background:var(--bg);border:1px solid var(--border);border-radius:7px;
+    padding:9px 11px;resize:vertical;
+  }
+  .slide.alt .f-row input,.slide.alt .f-row textarea{background:var(--bg-panel-2);}
+  .f-row input:focus,.f-row textarea:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .contact-form button{align-self:flex-start;cursor:pointer;margin-top:2px;}
+  .contact-form button:disabled{opacity:.6;cursor:default;}
+  .f-status{font-family:var(--mono);font-size:.78rem;margin:2px 0 0;min-height:1em;}
+  .f-status.ok{color:var(--accent-2);}
+  .f-status.err{color:var(--sev);}
 
   .foot-line{
     border-top:1px solid var(--border);padding-top:16px;
@@ -245,7 +265,7 @@
         <p class="welcome">Bienvenido/a a mi portfolio personal — acá vas a encontrar mi recorrido, en qué estoy formándome ahora mismo y los proyectos que voy a ir sumando a medida que los termine.</p>
         <div class="cta">
           <a class="btn primary" href="#proyectos">Ver proyectos</a>
-          <a class="btn ghost" href="mailto:e.damiantripodi@gmail.com">Escribime</a>
+          <a class="btn ghost" href="#contacto">Escribime</a>
           <a class="btn ghost" href="https://www.linkedin.com/in/edamiantripodi" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
       </div>
@@ -397,20 +417,49 @@
     <div class="inner">
       <span class="eyebrow">[ 03_CONTACTO ]</span>
       <h2>Contacto</h2>
-      <div class="contact-grid">
-        <div class="contact-card">
-          <span class="k">EMAIL</span>
-          <span class="v"><a href="mailto:e.damiantripodi@gmail.com">e.damiantripodi@gmail.com</a></span>
+
+      <div class="contact-layout">
+        <div class="contact-info">
+          <p class="lead" style="margin-bottom:16px;">¿Tenés una propuesta, una pregunta o encontraste un bug? Escribime por acá o mandame un mensaje directo.</p>
+          <div class="contact-list">
+            <div class="contact-item">
+              <span class="k">EMAIL</span>
+              <span class="v"><a href="mailto:e.damiantripodi@gmail.com">e.damiantripodi@gmail.com</a></span>
+            </div>
+            <div class="contact-item">
+              <span class="k">LINKEDIN</span>
+              <span class="v"><a href="https://www.linkedin.com/in/edamiantripodi" target="_blank" rel="noopener">in/edamiantripodi</a></span>
+            </div>
+            <div class="contact-item">
+              <span class="k">UBICACIÓN</span>
+              <span class="v">Buenos Aires, Argentina</span>
+            </div>
+          </div>
         </div>
-        <div class="contact-card">
-          <span class="k">LINKEDIN</span>
-          <span class="v"><a href="https://www.linkedin.com/in/edamiantripodi" target="_blank" rel="noopener">in/edamiantripodi</a></span>
-        </div>
-        <div class="contact-card">
-          <span class="k">UBICACIÓN</span>
-          <span class="v">Buenos Aires, Argentina</span>
-        </div>
+
+        <form class="contact-form" id="contactForm">
+          <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY">
+          <input type="hidden" name="subject" value="Nuevo mensaje desde el portfolio">
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+          <div class="f-row">
+            <label for="f-name">Nombre</label>
+            <input id="f-name" name="name" type="text" required autocomplete="name">
+          </div>
+          <div class="f-row">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" required autocomplete="email">
+          </div>
+          <div class="f-row">
+            <label for="f-message">Mensaje</label>
+            <textarea id="f-message" name="message" rows="3" required></textarea>
+          </div>
+
+          <button type="submit" class="btn primary" id="f-submit">Enviar mensaje</button>
+          <p class="f-status" id="f-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
+
       <div class="foot-line">
         <span>© 2026 Esteban Damián Tripodi</span>
         <span>built with React by day, breached with Python by night</span>
@@ -467,6 +516,49 @@
     }
     step();
   }catch(e){ renderStatic(); }
+})();
+
+(function(){
+  var form = document.getElementById('contactForm');
+  if(!form) return;
+  var statusEl = document.getElementById('f-status');
+  var btn = document.getElementById('f-submit');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = Object.fromEntries(new FormData(form));
+    if(data.botcheck){ return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    statusEl.textContent = '';
+    statusEl.className = 'f-status';
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify(data)
+    })
+      .then(function(res){ return res.json(); })
+      .then(function(result){
+        if(result.success){
+          statusEl.textContent = 'Mensaje enviado — te respondo a la brevedad.';
+          statusEl.className = 'f-status ok';
+          form.reset();
+        } else {
+          statusEl.textContent = 'No se pudo enviar. Escribime directo a e.damiantripodi@gmail.com';
+          statusEl.className = 'f-status err';
+        }
+      })
+      .catch(function(){
+        statusEl.textContent = 'No se pudo enviar. Escribime directo a e.damiantripodi@gmail.com';
+        statusEl.className = 'f-status err';
+      })
+      .finally(function(){
+        btn.disabled = false;
+        btn.textContent = 'Enviar mensaje';
+      });
+  });
 })();
 </script>
 </body>

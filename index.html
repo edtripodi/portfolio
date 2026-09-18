@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Esteban Tripodi — Portfolio</title>
+<meta name="description" content="Portfolio profesional de Esteban Damián Tripodi: Frontend Developer en camino hacia Ciberseguridad, Pentesting y DevSecOps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#0a0e14;
+    --bg-panel:#111823;
+    --bg-panel-2:#151e2a;
+    --accent:#e3a13c;
+    --accent-soft:rgba(227,161,60,.14);
+    --accent-2:#5cc8a8;
+    --sev:#e2584f;
+    --text:#eef2f1;
+    --text-dim:#8a97a6;
+    --border:#223041;
+    --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+    --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{color-scheme:dark;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    padding-inline:20px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;}
+  ::selection{background:var(--accent-soft);color:var(--accent);}
+
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  .wrap{max-width:840px;margin:0 auto;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:20;
+    display:flex;align-items:center;justify-content:space-between;
+    padding-block:14px;
+    background:rgba(10,14,20,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+    margin-inline:-20px;padding-inline:20px;
+  }
+  .logo{font-family:var(--mono);font-weight:700;font-size:.95rem;color:var(--text);}
+  .logo span{color:var(--accent);}
+  .navlinks{display:flex;gap:22px;font-family:var(--mono);font-size:.78rem;color:var(--text-dim);}
+  .navlinks a{color:var(--text-dim);}
+  .navlinks a:hover{color:var(--accent);text-decoration:none;}
+  @media (max-width:520px){ .navlinks{display:none;} }
+
+  /* ---------- HERO ---------- */
+  header.hero{padding-block:48px 40px;}
+  .status-pill{
+    display:inline-flex;align-items:center;gap:7px;
+    font-family:var(--mono);font-size:.72rem;color:var(--accent-2);
+    background:rgba(92,200,168,.1);border:1px solid rgba(92,200,168,.3);
+    padding:5px 10px;border-radius:100px;margin-bottom:22px;
+  }
+  .status-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 0 3px rgba(92,200,168,.18);}
+
+  .term{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;
+    overflow:hidden;box-shadow:0 20px 50px -25px rgba(0,0,0,.6);
+  }
+  .term-bar{
+    display:flex;align-items:center;gap:8px;padding:10px 14px;
+    background:var(--bg-panel-2);border-bottom:1px solid var(--border);
+  }
+  .term-bar .d{width:10px;height:10px;border-radius:50%;}
+  .term-bar .d1{background:#e2584f;} .term-bar .d2{background:#e3a13c;} .term-bar .d3{background:#5cc8a8;}
+  .term-bar .path{margin-left:8px;font-family:var(--mono);font-size:.72rem;color:var(--text-dim);}
+  .term-body{padding:18px 18px 22px;font-family:var(--mono);font-size:.85rem;color:#c8d1da;min-height:180px;}
+  .term-body .ln{margin-bottom:6px;white-space:pre-wrap;}
+  .term-body .prompt{color:var(--accent-2);}
+  .term-body .out{color:var(--text-dim);}
+  .cursor{display:inline-block;width:7px;height:1em;background:var(--accent);vertical-align:text-bottom;animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  @media (prefers-reduced-motion:reduce){ .cursor{animation:none;} }
+
+  h1.name{
+    font-family:var(--mono);font-weight:700;
+    font-size:clamp(1.8rem,5vw,2.7rem);
+    margin:28px 0 6px;letter-spacing:-.02em;text-wrap:balance;
+  }
+  p.role{font-size:1.05rem;color:var(--text-dim);max-width:60ch;margin:0 0 14px;}
+  p.role strong{color:var(--text);font-weight:600;}
+  p.welcome{font-size:.95rem;color:var(--text-dim);max-width:60ch;margin:0 0 22px;}
+
+  .cta{display:flex;flex-wrap:wrap;gap:12px;}
+  .btn{
+    font-family:var(--mono);font-size:.82rem;font-weight:600;
+    padding:11px 18px;border-radius:7px;border:1px solid var(--border);
+  }
+  .btn.primary{background:var(--accent);color:#1a1305;border-color:var(--accent);}
+  .btn.primary:hover{background:#f0ae4d;text-decoration:none;}
+  .btn.ghost{color:var(--text);}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);text-decoration:none;}
+
+  /* ---------- MAIN / RAIL ---------- */
+  main{padding-bottom:20px;}
+  .rail{position:relative;}
+  @media (min-width:720px){
+    .rail{padding-left:26px;border-left:2px solid var(--border);margin-left:3px;}
+    section.blk{position:relative;}
+    section.blk::before{
+      content:'';position:absolute;left:-33px;top:6px;
+      width:10px;height:10px;border-radius:2px;background:var(--bg);
+      border:2px solid var(--accent);
+    }
+  }
+
+  section.blk{padding-block:34px;border-top:1px solid var(--border);}
+  section.blk:first-child{border-top:none;}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:.75rem;color:var(--accent);
+    letter-spacing:.06em;margin:0 0 14px;display:block;
+  }
+  h2{font-family:var(--mono);font-size:1.35rem;margin:0 0 16px;letter-spacing:-.01em;}
+  h3.sub{font-family:var(--mono);font-size:1rem;color:var(--accent-2);margin:30px 0 6px;letter-spacing:.01em;}
+  h3.sub:first-of-type{margin-top:0;}
+  .lead{color:var(--text-dim);max-width:64ch;margin:0 0 8px;}
+
+  /* ---------- COMMIT / TIMELINE CARDS (experience) ---------- */
+  .commit{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:9px;
+    padding:18px 18px 16px;margin-bottom:12px;
+  }
+  .commit-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:baseline;margin-bottom:8px;}
+  .commit-role{font-weight:600;font-size:1rem;}
+  .commit-org{color:var(--text-dim);font-size:.9rem;}
+  .commit-date{font-family:var(--mono);font-size:.75rem;color:var(--accent-2);white-space:nowrap;}
+  .commit p{color:var(--text-dim);font-size:.92rem;margin:8px 0 12px;}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{
+    font-family:var(--mono);font-size:.72rem;color:var(--text-dim);
+    background:var(--bg-panel-2);border:1px solid var(--border);
+    padding:3px 8px;border-radius:5px;
+  }
+
+  /* ---------- EDUCATION (finished) ---------- */
+  .edu{display:flex;flex-direction:column;gap:10px;margin-bottom:8px;}
+  .edu-item{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:baseline;padding-bottom:10px;border-bottom:1px solid var(--border);}
+  .edu-item:last-child{border-bottom:none;padding-bottom:0;}
+  .edu-title{font-weight:600;font-size:.93rem;}
+  .edu-org{color:var(--text-dim);font-size:.83rem;}
+  .edu-date{font-family:var(--mono);font-size:.72rem;color:var(--accent-2);white-space:nowrap;}
+
+  /* ---------- IN-PROGRESS COURSE CARDS ---------- */
+  .course-card{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:9px;
+    padding:18px;margin-bottom:12px;
+  }
+  .course-head{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .course-title{font-weight:600;font-size:.98rem;}
+  .course-org{color:var(--text-dim);font-size:.85rem;margin-bottom:2px;}
+  .badge-progress{
+    font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.04em;
+    color:var(--accent);background:var(--accent-soft);border:1px solid rgba(227,161,60,.35);
+    padding:3px 8px;border-radius:5px;white-space:nowrap;
+  }
+  .course-meta{font-family:var(--mono);font-size:.72rem;color:var(--accent-2);margin-bottom:10px;}
+  .course-card p{color:var(--text-dim);font-size:.88rem;margin:0 0 10px;}
+
+  /* ---------- ASPIRE CHIPS ---------- */
+  .aspire-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .aspire-chip{
+    font-family:var(--mono);font-size:.78rem;font-weight:600;
+    padding:7px 12px;border-radius:100px;
+    color:var(--accent);background:var(--accent-soft);border:1px solid rgba(227,161,60,.35);
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skillgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px;}
+  @media (max-width:640px){ .skillgrid{grid-template-columns:1fr;} }
+  .skillcol{background:var(--bg-panel);border:1px solid var(--border);border-radius:9px;padding:16px;}
+  .skillcol h4{font-family:var(--mono);font-size:.82rem;color:var(--accent);margin:0 0 12px;letter-spacing:.02em;font-weight:600;}
+  .chiplist{display:flex;flex-wrap:wrap;gap:6px;}
+  .chip{font-family:var(--mono);font-size:.74rem;background:var(--bg-panel-2);border:1px solid var(--border);border-radius:5px;padding:4px 8px;color:#d3dbe2;}
+
+  /* ---------- PROJECTS ---------- */
+  .project-card{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;
+    padding:20px;margin-bottom:16px;
+  }
+  .project-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;}
+  .badge{
+    font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.04em;
+    padding:4px 9px;border-radius:5px;
+  }
+  .badge.ok{background:rgba(92,200,168,.12);color:var(--accent-2);border:1px solid rgba(92,200,168,.35);}
+  .badge.crit{background:rgba(226,88,79,.12);color:var(--sev);border:1px solid rgba(226,88,79,.35);}
+  .badge.soon{background:var(--bg-panel-2);color:var(--text-dim);border:1px solid var(--border);}
+  .project-card h3{font-family:var(--mono);font-size:1.02rem;margin:0 0 6px;}
+  .case-note{font-size:.85rem;color:var(--text-dim);margin-bottom:16px;}
+  .chain{display:flex;flex-direction:column;gap:10px;}
+  .step{
+    display:grid;grid-template-columns:34px 1fr;gap:14px;
+    background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:13px 14px;
+  }
+  .step .n{
+    font-family:var(--mono);font-weight:700;color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--border);border-radius:6px;height:34px;
+  }
+  .step h4{margin:0 0 4px;font-size:.9rem;font-family:var(--mono);}
+  .step p{margin:0;color:var(--text-dim);font-size:.85rem;}
+
+  .project-card.soon{
+    border-style:dashed;background:transparent;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .project-card.soon p{color:var(--text-dim);font-size:.88rem;margin:0;}
+  .projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:640px){ .projects-grid{grid-template-columns:1fr;} }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:flex;flex-wrap:wrap;gap:12px;}
+  .contact-card{
+    flex:1 1 200px;background:var(--bg-panel);border:1px solid var(--border);border-radius:9px;
+    padding:16px;
+  }
+  .contact-card .k{font-family:var(--mono);font-size:.7rem;color:var(--text-dim);letter-spacing:.05em;margin-bottom:6px;display:block;}
+  .contact-card .v{font-size:.95rem;font-weight:500;}
+
+  footer{
+    padding-block:26px 34px;border-top:1px solid var(--border);
+    font-family:var(--mono);font-size:.72rem;color:var(--text-dim);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="logo">ED<span>_</span>tripodi</div>
+    <div class="navlinks">
+      <a href="#inicio">inicio</a>
+      <a href="#sobre-mi">sobre mí</a>
+      <a href="#proyectos">proyectos</a>
+      <a href="#contacto">contacto</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="status-pill"><span class="dot"></span>Disponible para nuevos desafíos</div>
+
+    <div class="term">
+      <div class="term-bar">
+        <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
+        <span class="path">esteban@portfolio:~</span>
+      </div>
+      <div class="term-body" id="termBody"></div>
+    </div>
+
+    <h1 class="name">Esteban Damián Tripodi</h1>
+    <p class="role"><strong>Frontend Developer</strong> en camino hacia <strong>Ciberseguridad, Pentesting y DevSecOps</strong>. Construyo interfaces con React/TypeScript y, cuando el trabajo lo pide, pienso como quien intenta romperlas.</p>
+    <p class="welcome">Bienvenido/a a mi portfolio personal — acá vas a encontrar mi recorrido, en qué estoy formándome ahora mismo y los proyectos que voy a ir sumando a medida que los termine.</p>
+
+    <div class="cta">
+      <a class="btn primary" href="#proyectos">Ver proyectos</a>
+      <a class="btn ghost" href="mailto:e.damiantripodi@gmail.com">Escribime</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/edamiantripodi" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </header>
+
+  <main class="rail">
+
+    <section class="blk" id="sobre-mi">
+      <span class="eyebrow">[ 01_SOBRE MÍ ]</span>
+      <h2>Sobre mí</h2>
+      <p class="lead">Técnico Universitario en Programación con base analítica y buena adaptación a entornos nuevos. Disfruto tanto de dejar una interfaz prolija como de encontrar la forma de romperla — por eso mi camino va del desarrollo frontend hacia la seguridad ofensiva.</p>
+
+      <h3 class="sub">Qué hice</h3>
+      <div class="edu">
+        <div class="edu-item">
+          <div><div class="edu-title">Técnico Universitario en Programación</div><div class="edu-org">Universidad Tecnológica Nacional — Haedo</div></div>
+          <div class="edu-date">03/2022 — 08/2024</div>
+        </div>
+        <div class="edu-item">
+          <div><div class="edu-title">Introducción a Ciberseguridad</div><div class="edu-org">Cisco Networking Academy</div></div>
+          <div class="edu-date">04/2025</div>
+        </div>
+        <div class="edu-item">
+          <div><div class="edu-title">Curso de Inteligencia Artificial</div><div class="edu-org">Programo mi Futuro</div></div>
+          <div class="edu-date">08/2024</div>
+        </div>
+      </div>
+
+      <div class="commit">
+        <div class="commit-head">
+          <div><span class="commit-role">Frontend Developer</span> · <span class="commit-org">Inversiones y Desarrollos Tecnológicos GYGC</span></div>
+          <div class="commit-date">10/2025 — actualidad</div>
+        </div>
+        <p>A cargo de <strong>Panel MCP</strong> (usuarios, permisos, sprints, despliegue de contenedores) y de <strong>RTO</strong> (web + mobile vía Capacitor: código de barras, mapas, push). Colaboro en integraciones de WhatsApp Business. Desarrollo asistido por IA vía MCP corporativo.</p>
+        <div class="tags">
+          <span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">Vite</span>
+          <span class="tag">TailwindCSS</span><span class="tag">HeroUI</span><span class="tag">Zustand</span>
+          <span class="tag">TanStack Query</span><span class="tag">Gitea</span>
+        </div>
+      </div>
+
+      <div class="commit">
+        <div class="commit-head">
+          <div><span class="commit-role">Profesor particular</span> · <span class="commit-org">Matemática y Química</span></div>
+          <div class="commit-date">02/2021 — actualidad</div>
+        </div>
+        <p>Clases personalizadas con seguimiento del progreso académico del estudiante.</p>
+      </div>
+
+      <div class="commit">
+        <div class="commit-head">
+          <div><span class="commit-role">Soporte técnico</span> · <span class="commit-org">Independiente</span></div>
+          <div class="commit-date">07/2023 — actualidad</div>
+        </div>
+        <p>Diagnóstico y resolución de problemas de hardware/software, mantenimiento preventivo y correctivo, instalaciones y migraciones de sistema.</p>
+      </div>
+
+      <div class="commit">
+        <div class="commit-head">
+          <div><span class="commit-role">Técnico Químico</span> · <span class="commit-org">Pellital SA</span></div>
+          <div class="commit-date">01/2014 — 11/2018</div>
+        </div>
+        <p>Control de calidad bajo norma ISO 9001, uso de instrumental técnico (AA, GC, TLC), pruebas en planta piloto, homologaciones y desarrollo de productos.</p>
+      </div>
+
+      <h3 class="sub">Qué estoy haciendo</h3>
+      <p class="lead" style="margin-bottom:16px;">Cuatro formaciones en paralelo, todas orientadas al mismo objetivo: pasar de romper cosas por curiosidad a hacerlo de forma profesional.</p>
+
+      <div class="course-card">
+        <div class="course-head">
+          <div>
+            <div class="course-title">Diplomatura en Administración de Redes Linux y Ciberseguridad</div>
+            <div class="course-org">Universidad Tecnológica Nacional — Facultad Regional Delta</div>
+          </div>
+          <span class="badge-progress">EN CURSO</span>
+        </div>
+        <div class="course-meta">06/2025 — 02/2026 · 100% online · 3 módulos</div>
+        <p>Administrador de Redes Linux (instalación, usuarios y permisos, LVM/RAID, servicios de red, DNS/DHCP/SSH/Samba/Apache, firewall) + módulo de Ciberseguridad orientado a ethical hacking (footprinting, scanning, system hacking, sniffing, ingeniería social, IDS/IPS, criptografía, pentesting con Metasploit).</p>
+        <div class="tags">
+          <span class="tag">GNU/Linux</span><span class="tag">Redes</span><span class="tag">Hardening</span><span class="tag">Metasploit</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-head">
+          <div>
+            <div class="course-title">Ethical Hacker con Kali Linux</div>
+            <div class="course-org">Universidad Tecnológica Nacional — Facultad Regional Delta</div>
+          </div>
+          <span class="badge-progress">EN CURSO</span>
+        </div>
+        <div class="course-meta">06/2025 — 02/2026 · 24 clases · 48 hs</div>
+        <p>Certificación específica sobre Kali Linux: seguridad de la información, malware, hacking de sistemas Windows/Linux, redes inalámbricas, buffer overflow, session hijacking y evasión de IDS.</p>
+        <div class="tags">
+          <span class="tag">Kali Linux</span><span class="tag">Malware</span><span class="tag">Wireless</span><span class="tag">Exploits</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-head">
+          <div>
+            <div class="course-title">Programa Bug Bounty</div>
+            <div class="course-org">Ekoparty Hackademy</div>
+          </div>
+          <span class="badge-progress">EN CURSO</span>
+        </div>
+        <div class="course-meta">2026 · 11 módulos</div>
+        <p>De la teoría del bug bounty al reporte profesional: setup de laboratorio, recon y automatización, OSINT, vulnerabilidades web (IDOR, BAC, XSS, HTML injection), hunting en código fuente, mobile bug bounty, vulnerabilidades avanzadas (SSRF, SQLi, RCE, race conditions) y buenas prácticas de reporting.</p>
+        <div class="tags">
+          <span class="tag">Bug Bounty</span><span class="tag">OSINT</span><span class="tag">Web Vulns</span><span class="tag">Reporting</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-head">
+          <div>
+            <div class="course-title">Diplomatura Universitaria en DevOps</div>
+            <div class="course-org">MundosE — Universidad Nacional de Córdoba (FCEFyN)</div>
+          </div>
+          <span class="badge-progress">EN CURSO</span>
+        </div>
+        <div class="course-meta">08/2026 — 06/2027 · 9 módulos · online en vivo</div>
+        <p>Cultura e introducción a DevOps, Linux, Git/GitHub/GitLab, nubes (AWS, Azure, Google Cloud), integración continua (GitLab CI, GitHub Actions, CircleCI, Jenkins), contenedores (Docker, Kubernetes), entrega continua y calidad, e Infraestructura como Código (Terraform, OpenTofu).</p>
+        <div class="tags">
+          <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span><span class="tag">Terraform</span><span class="tag">AWS</span>
+        </div>
+      </div>
+
+      <h3 class="sub">A qué aspiro</h3>
+      <p class="lead">Mi objetivo es consolidarme en <strong>Ciberseguridad y Pentesting</strong>, con foco en roles de <strong>Blue Team</strong> o <strong>DevSecOps</strong> — llevar la misma disciplina que aplico escribiendo interfaces a defender y asegurar la infraestructura que las sostiene.</p>
+      <div class="aspire-chips">
+        <span class="aspire-chip">Ciberseguridad</span>
+        <span class="aspire-chip">Pentesting</span>
+        <span class="aspire-chip">Blue Team</span>
+        <span class="aspire-chip">DevSecOps</span>
+      </div>
+
+      <h3 class="sub">Stack</h3>
+      <div class="skillgrid">
+        <div class="skillcol">
+          <h4>frontend</h4>
+          <div class="chiplist">
+            <span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">TailwindCSS</span>
+            <span class="chip">HeroUI</span><span class="chip">Zustand</span><span class="chip">TanStack Query</span>
+            <span class="chip">Vite</span><span class="chip">Material UI</span>
+          </div>
+        </div>
+        <div class="skillcol">
+          <h4>security &amp; networks</h4>
+          <div class="chiplist">
+            <span class="chip">Pentesting</span><span class="chip">Escalada de privilegios</span><span class="chip">Nmap</span>
+            <span class="chip">Wireshark</span><span class="chip">Metasploit</span><span class="chip">Aircrack-ng</span>
+            <span class="chip">Hydra</span><span class="chip">OSINT</span><span class="chip">TCP/IP</span><span class="chip">SSH</span>
+          </div>
+        </div>
+        <div class="skillcol">
+          <h4>systems &amp; devops</h4>
+          <div class="chiplist">
+            <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Terraform</span>
+            <span class="chip">PostgreSQL</span><span class="chip">Django</span><span class="chip">GNU/Linux</span>
+            <span class="chip">Bash</span><span class="chip">Python</span><span class="chip">AWS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk" id="proyectos">
+      <span class="eyebrow">[ 02_PROYECTOS ]</span>
+      <h2>Proyectos</h2>
+      <p class="lead" style="margin-bottom:18px;">Todavía estoy armando esta sección — pronto voy a ir subiendo proyectos propios de desarrollo y de seguridad ofensiva. Por ahora, el primero es real: una auditoría que hice sobre infraestructura productiva.</p>
+
+      <div class="project-card">
+        <div class="project-top">
+          <span class="badge ok">AUTORIZADO · ÉTICO</span>
+          <span class="badge crit">COMPROMISO COMPLETO DE INFRAESTRUCTURA</span>
+        </div>
+        <h3>Auditoría de seguridad ofensiva interna</h3>
+        <p class="case-note">Pentest solicitado por dirección técnica sobre servidores productivos con Docker. Nombres de host, rutas e identidad del cliente omitidos por confidencialidad corporativa — se documenta únicamente la cadena de explotación.</p>
+        <div class="chain">
+          <div class="step">
+            <span class="n">01</span>
+            <div><h4>TOCTOU — symlink injection</h4><p>Carrera contra un script <code>sudo NOPASSWD</code> de Docker Compose → persistencia root vía <code>/etc/sudoers</code>.</p></div>
+          </div>
+          <div class="step">
+            <span class="n">02</span>
+            <div><h4>Git-config poisoning</h4><p>Abuso de <code>core.fsmonitor</code> en un wrapper de <code>git pull</code> ejecutado como root → shell con bit SUID persistente.</p></div>
+          </div>
+          <div class="step">
+            <span class="n">03</span>
+            <div><h4>Python library hijacking</h4><p>Troyanización de <code>yaml.py</code> ejecutada con privilegios root → pivote a PostgreSQL y escalación a admin de Django evadiendo 2FA.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card soon">
+          <div class="project-top"><span class="badge soon">PRÓXIMAMENTE</span></div>
+          <h3>Proyecto de desarrollo</h3>
+          <p>Todavía no subí nada acá, pero ya viene en camino — voy a documentar acá mis próximos proyectos frontend.</p>
+        </div>
+        <div class="project-card soon">
+          <div class="project-top"><span class="badge soon">PRÓXIMAMENTE</span></div>
+          <h3>Write-up de Bug Bounty</h3>
+          <p>A medida que avance en Hackademy voy a ir compartiendo hallazgos y write-ups propios de bug bounty.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk" id="contacto">
+      <span class="eyebrow">[ 03_CONTACTO ]</span>
+      <h2>Contacto</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <span class="k">EMAIL</span>
+          <span class="v"><a href="mailto:e.damiantripodi@gmail.com">e.damiantripodi@gmail.com</a></span>
+        </div>
+        <div class="contact-card">
+          <span class="k">LINKEDIN</span>
+          <span class="v"><a href="https://www.linkedin.com/in/edamiantripodi" target="_blank" rel="noopener">in/edamiantripodi</a></span>
+        </div>
+        <div class="contact-card">
+          <span class="k">UBICACIÓN</span>
+          <span class="v">Buenos Aires, Argentina</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>© 2026 Esteban Damián Tripodi</span>
+    <span>built with React by day, breached with Python by night</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var lines = [
+    {p:'$ ', t:'whoami', cls:'prompt'},
+    {p:'', t:'esteban_damian_tripodi', cls:'out'},
+    {p:'$ ', t:'cat bienvenida.txt', cls:'prompt'},
+    {p:'', t:'Bienvenido/a a mi portfolio personal.', cls:'out'},
+    {p:'$ ', t:'./estado.sh --actual', cls:'prompt'},
+    {p:'', t:'> Frontend Dev, camino a Ciberseguridad/Pentesting/DevSecOps', cls:'out'}
+  ];
+  var body = document.getElementById('termBody');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic(){
+    body.innerHTML = lines.map(function(l){
+      return '<div class="ln"><span class="prompt">'+l.p+'</span><span class="'+(l.p?'':l.cls)+'">'+l.t+'</span></div>';
+    }).join('') + '<span class="cursor"></span>';
+  }
+
+  if(reduce){ renderStatic(); return; }
+
+  try{
+    var li = 0, ci = 0;
+    function step(){
+      if(li >= lines.length){
+        var cur = document.createElement('span'); cur.className='cursor';
+        body.appendChild(cur);
+        return;
+      }
+      var line = lines[li];
+      if(ci === 0){
+        var div = document.createElement('div');
+        div.className = 'ln';
+        div.innerHTML = '<span class="prompt">'+line.p+'</span><span class="typed"></span>';
+        body.appendChild(div);
+      }
+      var typed = body.lastChild.querySelector('.typed');
+      if(ci < line.t.length){
+        typed.textContent += line.t[ci];
+        if(!line.p) typed.className = 'typed out';
+        ci++;
+        setTimeout(step, 14);
+      } else {
+        li++; ci = 0;
+        setTimeout(step, 90);
+      }
+    }
+    step();
+  }catch(e){ renderStatic(); }
+})();
+</script>
+</body>
+</html>

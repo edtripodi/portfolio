@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
+  const accessKey = (process.env.WEB3FORMS_ACCESS_KEY || '').trim();
   if (!accessKey) {
     res.status(500).json({ success: false, message: 'El servidor no tiene configurada la access key.' });
     return;
@@ -39,6 +39,11 @@ export default async function handler(req, res) {
     const data = await web3Res.json();
     res.status(web3Res.ok ? 200 : 502).json(data);
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Error al contactar el servicio de envío.' });
+    // TODO: sacar `debug` una vez resuelto el 500 — no expone la key, solo el mensaje de error.
+    res.status(500).json({
+      success: false,
+      message: 'Error al contactar el servicio de envío.',
+      debug: String((err && err.message) || err),
+    });
   }
 }
